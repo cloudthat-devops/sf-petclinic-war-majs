@@ -1,2 +1,2 @@
 cd /opt/tomcat/bin
-bash startup.sh
+sudo bash startup.sh

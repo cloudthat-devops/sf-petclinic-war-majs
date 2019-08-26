@@ -7,4 +7,4 @@ phases:
       - mvn package
 artifacts:
   files:
-    - target/petclinic.war
+    - petclinic.war

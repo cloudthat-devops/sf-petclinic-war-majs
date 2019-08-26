@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+files:
+- source: /
+  destination: /opt/tomcat/webapps/
+hooks:
+  ApplicationStart:
+  - location: stop.sh
+    timeout: 300
+    runas: ubuntu
+  ApplicationStop:
+  - location: start.sh
+    timeout: 300
+    runas: ubuntu

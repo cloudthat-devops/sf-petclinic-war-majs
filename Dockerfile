@@ -1,7 +1,7 @@
 FROM openjdk:11-jdk-slim
 LABEL authors="Nandu"
 
-COPY ./spring-petclinic.jar /app.jar
+COPY ./target/petclinic.war /app.war
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app.war"]

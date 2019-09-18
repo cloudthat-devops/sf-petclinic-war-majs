@@ -6,6 +6,7 @@ phases:
       - echo Build completed on `date`
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - REPOSITORY_URI=869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic
       - mvn package -DskipTests
       #- nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375 --storage-driver=overlay&
       #- timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
@@ -13,8 +14,8 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest .
-      - docker tag petclinic:latest 0869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`

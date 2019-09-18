@@ -6,18 +6,21 @@ phases:
       - echo Build completed on `date`
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - REPOSITORY_URI=869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic   
       - echo ${COMMIT_HASH:=latest}
-      #- REPOSITORY_URI=869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic   
+      - echo $IMAGE_TAG
+      - echo $REPOSITORY_URI
+      
   build:
     commands:
       - echo Build started on `date`
       - mvn package -DskipTests
       - echo Building the Docker image...          
-      - docker build -t 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest .
-      - docker tag petclinic:latest 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:$IMAGE_TAG
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       #- docker push 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest
-      - docker push 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:$IMAGE_TAG

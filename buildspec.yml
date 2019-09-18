@@ -11,7 +11,7 @@ phases:
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t petclinic:latest .
+      - docker build -t 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest .
       - docker tag petclinic:latest 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest    
   post_build:
     commands:

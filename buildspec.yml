@@ -4,14 +4,15 @@ phases:
   pre_build:
     commands:
       - echo Build completed on `date`
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - mvn package
   build:
     commands:
-      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest .
-      - docker tag petclinic:latest 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest    
+      - docker tag 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`

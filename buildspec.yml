@@ -5,10 +5,8 @@ phases:
     commands:
       - echo Build completed on `date`
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - REPOSITORY_URI=869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic
-      - echo $IMAGE_TAG
-      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      #- REPOSITORY_URI=869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic   
   build:
     commands:
       - echo Build started on `date`

@@ -16,10 +16,10 @@ phases:
       - mvn package -DskipTests
       - echo Building the Docker image...          
       - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker tag $REPOSITORY_URI:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       #- docker push 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:latest

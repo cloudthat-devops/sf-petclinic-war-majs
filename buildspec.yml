@@ -6,6 +6,7 @@ phases:
       - echo Build completed on `date`
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - echo $IMAGE_TAG
       #- REPOSITORY_URI=869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic   
   build:
     commands:

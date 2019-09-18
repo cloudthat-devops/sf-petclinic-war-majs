@@ -9,8 +9,8 @@ phases:
          
   build:
     commands:
-      - echo Build started on `date`
-      - mvn package -DskipTests
+     # - echo Build started on `date`
+      #- mvn package -DskipTests
       - echo Building the Docker image...          
       - docker build -t $REPOSITORY_URI:latest .
      

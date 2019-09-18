@@ -1,10 +1,20 @@
 version: 0.1
 
 phases:
-  build:
+  pre_build:
     commands:
       - echo Build completed on `date`
       - mvn package
-artifacts:
-  files:
-    - target/petclinic.war
+  build:
+    commands:
+      - mvn package 
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t petclinic:latest .
+      - docker tag petclinic:latest 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest    
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest

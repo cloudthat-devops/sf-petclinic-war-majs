@@ -15,10 +15,10 @@ phases:
       - mvn package -DskipTests
       - echo Building the Docker image...          
       - docker build -t 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest .
-      - docker tag 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:$IMAGE_TAG
+      - docker tag petclinic:latest 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest
+      #- docker push 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:latest
       - docker push 869630519277.dkr.ecr.us-east-2.amazonaws.com/petclinic:$IMAGE_TAG
